@@ -5,7 +5,6 @@ import { StatusBar } from 'expo-status-bar';
 import { useFonts } from 'expo-font';
 import * as SplashScreen from 'expo-splash-screen';
 
-// Mantiene visible la pantalla de bienvenida mientras cargan las fuentes
 SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
