@@ -1,4 +1,4 @@
-import { View, StyleSheet, SafeAreaView, Text, ScrollView } from 'react-native';
+import { View, StyleSheet, SafeAreaView, Text, ScrollView, TouchableOpacity } from 'react-native';
 import { Display } from '../components/Display';
 import { Regilla } from '../components/Regilla';
 import { useCalculator } from '../hooks/useCalculator';
@@ -9,22 +9,35 @@ export default function IndexScreen() {
     prevNumber,
     history,
     clear,
+    clearHistory,
     deleteLast,
     buildNumber,
     setOperationType,
     calculatePercentage,
     calculateResult,
+    useHistoryItem,
   } = useCalculator();
 
   return (
     <SafeAreaView style={styles.safeArea}>
       <View style={styles.calculatorContainer}>
         
-        {/* Panel de Historial Deslizable */}
-        <View style={styles.historyContainer}>
+        {/* Panel de Historial Interactivo */}
+        <View style={styles.historyWrapper}>
           <ScrollView horizontal showsHorizontalScrollIndicator={false} contentContainerStyle={styles.historyScroll}>
+            {history.length > 0 && (
+              <TouchableOpacity onPress={clearHistory} style={styles.clearHistoryBtn}>
+                <Text style={styles.clearHistoryText}>🗑️</Text>
+              </TouchableOpacity>
+            )}
             {history.map((item, index) => (
-              <Text key={index} style={styles.historyItem}>{item}</Text>
+              <TouchableOpacity 
+                key={index} 
+                onPress={() => useHistoryItem(item)}
+                style={styles.historyItemTouchable}
+              >
+                <Text style={styles.historyItem}>{item}</Text>
+              </TouchableOpacity>
             ))}
           </ScrollView>
         </View>
@@ -52,23 +65,39 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
   },
-  historyContainer: {
-    height: 40,
+  historyWrapper: {
+    height: 45,
     paddingHorizontal: 16,
     justifyContent: 'center',
   },
   historyScroll: {
     alignItems: 'center',
-    gap: 12,
+    gap: 8,
+  },
+  clearHistoryBtn: {
+    backgroundColor: '#da3633',
+    paddingHorizontal: 8,
+    paddingVertical: 6,
+    borderRadius: 6,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
+  clearHistoryText: {
+    fontSize: 14,
+  },
+  historyItemTouchable: {
+    borderRadius: 6,
+    overflow: 'hidden',
   },
   historyItem: {
     fontFamily: 'PixelFont',
     fontSize: 14,
     color: '#8b949e',
     backgroundColor: '#161b22',
-    paddingHorizontal: 8,
-    paddingVertical: 4,
+    paddingHorizontal: 10,
+    paddingVertical: 6,
     borderRadius: 6,
-    overflow: 'hidden',
+    borderWidth: 1,
+    borderColor: '#30363d',
   },
 });
