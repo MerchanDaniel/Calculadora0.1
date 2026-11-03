@@ -9,7 +9,7 @@ SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const [loaded, error] = useFonts({
-    PixelFont: require('../assets/fonts/pixel.ttf'),
+    PixelFont: require('../../assets/fonts/pixel.ttf'),
   });
 
   useEffect(() => {
