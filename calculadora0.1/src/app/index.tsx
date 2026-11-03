@@ -1,12 +1,29 @@
 import { View, StyleSheet } from 'react-native';
 import { Display } from '../components/Display';
 import { Regilla } from '../components/Regilla';
+import { useCalculator } from '../hooks/UseCalculator';
 
 export default function IndexScreen() {
+  const {
+    formula,
+    prevNumber,
+    clear,
+    deleteLast,
+    buildNumber,
+    setOperationType,
+    calculateResult,
+  } = useCalculator();
+
   return (
     <View style={styles.calculatorContainer}>
-      <Display mainValue="99.99" subValue="10 + 89.99" />
-      <Regilla />
+      <Display mainValue={formula} subValue={prevNumber} />
+      <Regilla
+        onBuildNumber={buildNumber}
+        onClear={clear}
+        onDelete={deleteLast}
+        onOperation={setOperationType}
+        onCalculate={calculateResult}
+      />
     </View>
   );
 }
