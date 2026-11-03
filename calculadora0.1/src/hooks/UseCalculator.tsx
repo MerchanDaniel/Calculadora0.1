@@ -1,10 +1,11 @@
 import { useState } from 'react';
+import * as Speech from 'expo-speech';
 
 export function useCalculator() {
   const [formula, setFormula] = useState('0');
   const [prevNumber, setPrevNumber] = useState('');
   const [operation, setOperation] = useState<string | null>(null);
-  const [history, setHistory] = useState<string[]>([]); // Estado para el historial
+  const [history, setHistory] = useState<string[]>([]);
 
   const clear = () => {
     setFormula('0');
@@ -47,7 +48,6 @@ export function useCalculator() {
     setOperation(op);
   };
 
-  // Función funcional para el porcentaje (%)
   const calculatePercentage = () => {
     const current = parseFloat(formula);
     if (isNaN(current)) return;
@@ -80,12 +80,18 @@ export function useCalculator() {
     }
 
     const operationRecord = `${num1} ${operation} ${num2} = ${result}`;
-    // Añadimos la operación al historial manteniendo los últimos 10 registros
     setHistory((prev) => [operationRecord, ...prev].slice(0, 10));
 
     setFormula(result.toString());
     setPrevNumber('');
     setOperation(null);
+
+    // 🔊 ¡Aquí la magia de la voz! Hace que el dispositivo hable el resultado en español
+    Speech.speak(`El resultado es ${result}`, {
+      language: 'es-ES',
+      pitch: 0.9, // Un tono ligeramente más grave o robótico/retro
+      rate: 1.0,
+    });
   };
 
   return {
