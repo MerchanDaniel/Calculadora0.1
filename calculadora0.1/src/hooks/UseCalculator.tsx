@@ -4,6 +4,7 @@ export function useCalculator() {
   const [formula, setFormula] = useState('0');
   const [prevNumber, setPrevNumber] = useState('');
   const [operation, setOperation] = useState<string | null>(null);
+  const [history, setHistory] = useState<string[]>([]); // Estado para el historial
 
   const clear = () => {
     setFormula('0');
@@ -46,6 +47,14 @@ export function useCalculator() {
     setOperation(op);
   };
 
+  // Función funcional para el porcentaje (%)
+  const calculatePercentage = () => {
+    const current = parseFloat(formula);
+    if (isNaN(current)) return;
+    const result = current / 100;
+    setFormula(result.toString());
+  };
+
   const calculateResult = () => {
     if (!operation || prevNumber === '') return;
 
@@ -70,6 +79,10 @@ export function useCalculator() {
         return;
     }
 
+    const operationRecord = `${num1} ${operation} ${num2} = ${result}`;
+    // Añadimos la operación al historial manteniendo los últimos 10 registros
+    setHistory((prev) => [operationRecord, ...prev].slice(0, 10));
+
     setFormula(result.toString());
     setPrevNumber('');
     setOperation(null);
@@ -78,10 +91,12 @@ export function useCalculator() {
   return {
     formula,
     prevNumber,
+    history,
     clear,
     deleteLast,
     buildNumber,
     setOperationType,
+    calculatePercentage,
     calculateResult,
   };
 }

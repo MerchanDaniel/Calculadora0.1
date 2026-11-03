@@ -6,49 +6,50 @@ interface RegillaProps {
   onClear: () => void;
   onDelete: () => void;
   onOperation: (op: string) => void;
+  onPercentage: () => void;
   onCalculate: () => void;
 }
 
-export function Regilla({ onBuildNumber, onClear, onDelete, onOperation, onCalculate }: RegillaProps) {
+export function Regilla({ onBuildNumber, onClear, onDelete, onOperation, onPercentage, onCalculate }: RegillaProps) {
   return (
     <View style={styles.buttonsContainer}>
       {/* Fila 1 */}
       <View style={styles.row}>
-        <Boton label="AC" onPress={onClear} />
-        <Boton label="⌫" onPress={onDelete} />
-        <Boton label="%" onPress={() => {}} />
-        <Boton label="÷" onPress={() => onOperation('÷')} />
+        <Boton label="AC" onPress={onClear} type="action" />
+        <Boton label="⌫" onPress={onDelete} type="action" />
+        <Boton label="%" onPress={onPercentage} type="action" />
+        <Boton label="÷" onPress={() => onOperation('÷')} type="operator" />
       </View>
 
       {/* Fila 2 */}
       <View style={styles.row}>
-        <Boton label="7" onPress={() => onBuildNumber('7')} />
-        <Boton label="8" onPress={() => onBuildNumber('8')} />
-        <Boton label="9" onPress={() => onBuildNumber('9')} />
-        <Boton label="×" onPress={() => onOperation('×')} />
+        <Boton label="7" onPress={() => onBuildNumber('7')} type="number" />
+        <Boton label="8" onPress={() => onBuildNumber('8')} type="number" />
+        <Boton label="9" onPress={() => onBuildNumber('9')} type="number" />
+        <Boton label="×" onPress={() => onOperation('×')} type="operator" />
       </View>
 
       {/* Fila 3 */}
       <View style={styles.row}>
-        <Boton label="4" onPress={() => onBuildNumber('4')} />
-        <Boton label="5" onPress={() => onBuildNumber('5')} />
-        <Boton label="6" onPress={() => onBuildNumber('6')} />
-        <Boton label="-" onPress={() => onOperation('-')} />
+        <Boton label="4" onPress={() => onBuildNumber('4')} type="number" />
+        <Boton label="5" onPress={() => onBuildNumber('5')} type="number" />
+        <Boton label="6" onPress={() => onBuildNumber('6')} type="number" />
+        <Boton label="-" onPress={() => onOperation('-')} type="operator" />
       </View>
 
       {/* Fila 4 */}
       <View style={styles.row}>
-        <Boton label="1" onPress={() => onBuildNumber('1')} />
-        <Boton label="2" onPress={() => onBuildNumber('2')} />
-        <Boton label="3" onPress={() => onBuildNumber('3')} />
-        <Boton label="+" onPress={() => onOperation('+')} />
+        <Boton label="1" onPress={() => onBuildNumber('1')} type="number" />
+        <Boton label="2" onPress={() => onBuildNumber('2')} type="number" />
+        <Boton label="3" onPress={() => onBuildNumber('3')} type="number" />
+        <Boton label="+" onPress={() => onOperation('+')} type="operator" />
       </View>
 
       {/* Fila 5 */}
       <View style={styles.row}>
-        <Boton label="." onPress={() => onBuildNumber('.')} />
-        <Boton label="0" onPress={() => onBuildNumber('0')} />
-        <Boton label="=" isDouble onPress={onCalculate} />
+        <Boton label="." onPress={() => onBuildNumber('.')} type="number" />
+        <Boton label="0" onPress={() => onBuildNumber('0')} type="number" />
+        <Boton label="=" isDouble onPress={onCalculate} type="equal" />
       </View>
     </View>
   );
@@ -56,12 +57,12 @@ export function Regilla({ onBuildNumber, onClear, onDelete, onOperation, onCalcu
 
 const styles = StyleSheet.create({
   buttonsContainer: {
-    paddingBottom: 20,
+    paddingBottom: 15,
+    paddingHorizontal: 12,
   },
   row: {
     flexDirection: 'row',
     justifyContent: 'space-between',
-    marginBottom: 8,
-    paddingHorizontal: 10,
+    marginBottom: 6,
   },
 });

@@ -8,11 +8,16 @@ interface DisplayProps {
 export function Display({ mainValue, subValue }: DisplayProps) {
   return (
     <View style={styles.displayContainer}>
-      <Text numberOfLines={1} adjustsFontSizeToFit style={styles.mainResult}>
-        {mainValue}
-      </Text>
-      <Text numberOfLines={1} adjustsFontSizeToFit style={styles.subResult}>
+      <Text style={styles.subResult} numberOfLines={1}>
         {subValue}
+      </Text>
+      <Text 
+        style={styles.mainResult} 
+        numberOfLines={1} 
+        adjustsFontSizeToFit 
+        minimumFontScale={0.4}
+      >
+        {mainValue}
       </Text>
     </View>
   );
@@ -24,17 +29,24 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     alignItems: 'flex-end',
     paddingHorizontal: 20,
-    paddingBottom: 10,
+    paddingBottom: 15,
+    backgroundColor: '#0d1117', // Fondo tipo terminal/consola oscura
+    margin: 16,
+    borderRadius: 14,
+    borderWidth: 2,
+    borderColor: '#30363d',
   },
   mainResult: {
     fontFamily: 'PixelFont',
-    fontSize: 70,
-    color: '#FFFFFF',
+    fontSize: 58,
+    color: '#58a6ff', // Tono azulado brillante tipo display de alta gama retro
+    textAlign: 'right',
   },
   subResult: {
     fontFamily: 'PixelFont',
-    fontSize: 30,
-    color: '#FFFFFF',
-    marginTop: 5,
+    fontSize: 22,
+    color: '#8b949e',
+    height: 30,
+    textAlign: 'right',
   },
 });
